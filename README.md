@@ -1,5 +1,12 @@
-mit-808-starter
+DSFSI Dataset Template
 ==============================
+
+## Acknowledgements
+
+* [Cookie Cutter Data Science](https://drivendata.github.io/cookiecutter-data-science/)
+* DataSheet - https://github.com/JRMeyer/markdown-datasheet-for-datasets
+
+## Main content
 
 A short description of the project.
 
