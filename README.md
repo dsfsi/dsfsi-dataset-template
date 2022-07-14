@@ -10,6 +10,7 @@ DSFSI Dataset Template
 
 A short description of the project.
 
+
 Project Organization
 ------------
 
@@ -62,3 +63,19 @@ Project Organization
 --------
 
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
+
+
+## Online Repository link
+
+* TBD
+
+## Authors
+
+* TBD
+
+See also the list of [contributors](https://github.com/dsfsi/vukuzenzele-nlp/contributors) who participated in this project.
+
+## License
+
+* Data is Licensed under CC 4.0 BY NC. See [LICENSE.data.md](LICENSE.data.md)
+* Code is Licences under MIT License. See [LICENSE.md](LICENSE.md)
