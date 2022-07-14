@@ -78,4 +78,4 @@ See also the list of [contributors](https://github.com/dsfsi/vukuzenzele-nlp/con
 ## License
 
 * Data is Licensed under CC 4.0 BY NC. See [LICENSE.data.md](LICENSE.data.md)
-* Code is Licences under MIT License. See [LICENSE.md](LICENSE.md)
+* Code is Licensed under MIT License. See [LICENSE.md](LICENSE.md)
