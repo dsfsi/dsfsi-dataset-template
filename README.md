@@ -73,9 +73,11 @@ Project Organization
 
 * TBD
 
-See also the list of [contributors](https://github.com/dsfsi/vukuzenzele-nlp/contributors) who participated in this project.
+## Contributors
+[![Contributors](https://contributors-img.web.app/image?repo=dsfsi/vukuzenzele-nlp)](https://github.com/dsfsi/vukuzenzele-nlp/graphs/contributors)
+Made with [contributors-img](https://contributors-img.web.app).
+* See https://github.com/dsfsi/vukuzenzele-nlp/graphs/contributors
 
-## License
-
-* Data is Licensed under CC 4.0 BY NC. See [LICENSE.data.md](LICENSE.data.md)
-* Code is Licensed under MIT License. See [LICENSE.md](LICENSE.md)
+## Licenses
+* Data is Licensed under CC BY-SA 4.0. See [LICENSE.data.md](LICENSE.data.md) [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
+* Code is Licensed under MIT License. See [LICENSE.md](LICENSE.md) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
