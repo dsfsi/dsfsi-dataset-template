@@ -1,7 +1,7 @@
 Notes:
-- From 2012-10-ed1 to 2005, there are no available PDFs. There is only the provided printer friendly version.
-  These will be downloaded and pushed if requested.
-
+- From 2012-10-ed1 to 2005, there are no available PDFs. 
+  There is only the provided printer friendly version.
+  
 - There are missing files in some of the papers.
   These have been accounted for with a readme file in each folder and what file is missing. 
 
