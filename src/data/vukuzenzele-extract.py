@@ -39,7 +39,8 @@ def processPDF(fileName, storyNo, file, n1, n2):
         pdfData = pdfData.replace("    ","\n")
         pdfData = pdfData.replace("   "," ")
         pdfData = pdfData.replace("\n\n\n","")
-
+        pdfData = pdfData.replace(";•","; \n•")
+        
         lines = pdfData.count("\n")
         data = data + pdfData
         print("\n\n")
