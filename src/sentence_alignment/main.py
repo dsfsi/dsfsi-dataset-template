@@ -18,8 +18,10 @@ lang_mappings = {
 
 
 if __name__ == "__main__":
+    os.environ['LASER'] = '{}/LASER'.format(os.getcwd())
+
     # setup
-    config.setup_laser()
+    # config.setup_laser()
     config.download_laser_models(lang_mappings)
     config.download_tokeniser()
 
@@ -46,4 +48,7 @@ if __name__ == "__main__":
             re.sub("\.txt","\.raw", output)
             if match:
                 matched = match.group()
-                sentence_embedding.embed_sentences(text_txt, "../../data/embed/{}/{}".format(directory,output),lang_mappings[matched])
+                if not os.path.exists('../../data/embed/{}'.format(directory)):
+                    os.makedirs('../../data/embed/{}'.format(directory))
+
+                sentence_embedding.embed_sentences(f'{directory}/{text_txt}', "../../data/embed/{}/{}".format(directory,output),lang_mappings[matched])

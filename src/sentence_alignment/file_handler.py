@@ -76,9 +76,9 @@ def read_file(edition_path, txt_path): # -> str
 
 
 def write_tokens_to_txt(edition_path, txt_path, tokens): # -> None
-    if not os.path.isdir('./data/tokenised/{}'.format(edition_path)):
-        os.mkdir('./data/tokenised/{}'.format(edition_path))
-    new = open('./data/tokenised/{}/{}'.format(edition_path, txt_path),'w')
+    if not os.path.exists('../../data/tokenised/{}'.format(edition_path)):
+        os.makedirs('../../data/tokenised/{}'.format(edition_path))
+    new = open('../../data/tokenised/{}/{}'.format(edition_path, txt_path),'w')
     for token in tokens:
         new.write(token)
         if not tokens[len(tokens)-1]==token:
