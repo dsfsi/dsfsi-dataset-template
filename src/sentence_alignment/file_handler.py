@@ -1,6 +1,6 @@
 import os,re
 
-data_path = '{}/data/processed/'.format(os.getcwd())
+data_path = '../../data/processed/'
 languages = ['afr', 'eng', 'nbl', 'nso', 'sep', 'ssw', 'tsn', 'tso', 'ven', 'xho', 'zul']
 
 def fetch_data_root_filepaths(): # -> list[str]
