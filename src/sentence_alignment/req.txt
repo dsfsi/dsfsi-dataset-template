@@ -1,0 +1,10 @@
+scipy
+numpy
+pandas
+
+faiss-cpu
+fairseq==0.12.1
+transliterate
+tabulate
+scikit-learn
+nltk
