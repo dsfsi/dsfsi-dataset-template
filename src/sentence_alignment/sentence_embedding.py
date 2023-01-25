@@ -16,11 +16,12 @@ def encode_sentences(edition_path, txt_path, lang_model):
         -   txt_path: the path_name for the raw output to be written to (str)
         -   lang_model: the lang model to be used in the encoding (str)
     """
+
     if not os.path.exists(Path(embed_data_path / edition_path)): # if data/embed/edition doesn't exist
         os.makedirs(Path(embed_data_path / edition_path)) # make it 
     output_path = Path(embed_data_path / edition_path / txt_path) # the path to output
 
-    command = f'bash {laser_path}/tasks/embed/embed.sh' # the command without params
+    command = f'bash {laser_path}/tasks/embed/embed.sh ' # the command without params
     command += "{} {} {}".format(Path(embed_data_path / edition_path / txt_path), output_path, lang_model) # add params which are source text, output path & lang model
     subprocess.run(command, shell=True) # run the bash command using the shell
     
