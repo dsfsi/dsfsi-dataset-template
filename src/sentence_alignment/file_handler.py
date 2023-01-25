@@ -13,13 +13,28 @@ languages = ['afr', 'eng', 'nbl', 'nso', 'sep', 'ssw', 'tsn', 'tso', 'ven', 'xho
 
 
 def extract_latest_edition():
-    return open(
-        Path(
+    """
+    ### Reads the value stored in `last_edition_read.txt` which stores the last edition which underwent SA.
+    """
+
+    file_path =  Path(
             Path(os.path.abspath(__file__)).parent #src/sentence_alignment
-            / 'last_edition_read.txt'
-        ),'r').read()
+            / 'last_edition_read.txt' 
+        )
+
+    if not os.path.exists(file_path):
+        open(file_path , 'w')
+
+    edition = open(file_path,'r').read() #read as str
+
+    if not re.match('^\d{4}-\d{2}-[a-z]{2}\d$', edition): 
+        edition = '2020-01-ed1'
+    return edition
 
 def write_latest_edition(edition):
+    """
+    Writes an edition to last_edition_read.txt
+    """
     open(
         Path(
             Path(os.path.abspath(__file__)).parent #src/sentence_alignment
@@ -27,6 +42,9 @@ def write_latest_edition(edition):
         ),'w').write(edition)
 
 def build_date(edition):
+    """
+    Builds a date object using REGEX off an edition name, eg. 2020-01-ed2 = 2020/01/02
+    """
     edition_date = re.search('^\d{4}-\d{2}', edition).group()
     edition_no = re.search('\d$',edition).group()
 
@@ -36,19 +54,20 @@ def build_date(edition):
 
     return date(int(year), int(month), int(day))
 
-def fetch_data_edition_filepaths(): # -> list[str]
+def fetch_data_edition_filepaths(last_date): # -> list[str]
     """
     ### Compiles a list of file directories present in the /data/processed folder after the date present in /last_edition_read.txt
     #### Example filepath: `2020-01-ed1`
     """
-    last_date = extract_latest_edition()
     all_paths = os.listdir(raw_data_path) # list the directories in /data/processed
-    all_paths.remove('.gitkeep') 
+    all_paths.remove('.gitkeep') # remove the .gitkeep
+    all_paths.sort() # sort them
 
-    edition_paths = []
+    edition_paths = [] # empty list to append to
     for path in all_paths:
-        if build_date(path) > build_date(last_date):
-            edition_paths.append(path)
+        if build_date(path) > build_date(last_date): # if curr path later than last_date
+            edition_paths.append(path) # add to edition paths
+    edition_paths.sort() # the strings are sorted the same way date's would be... if only I knew sooner
     return edition_paths
 
 def fetch_data_txt_filepaths(edition): # -> list[str]
@@ -84,20 +103,20 @@ def build_filepaths_dictonary():
     }
     ```
     """
-    filepaths_dictionary = {}
-    edition_paths = fetch_data_edition_filepaths()
-    for edition in edition_paths:
-        txt_paths = fetch_data_txt_filepaths(edition)
-        for txt in txt_paths:
-            lang = re.search('afr|eng|nso|nbl|sep|ssw|tsn|tso|ven|xho|zul', txt).group()
-            if lang not in filepaths_dictionary.keys():
-                filepaths_dictionary[lang] = {edition : [txt]}
-            elif edition not in filepaths_dictionary[lang].keys():
-                filepaths_dictionary[lang][edition] = [txt]
+    filepaths_dictionary = {} # empty dict to append to
+    edition_paths = fetch_data_edition_filepaths(extract_latest_edition()) # build edition keys
+    for edition in edition_paths: # for each edition
+        txt_paths = fetch_data_txt_filepaths(edition) # list of txt paths inside an edition dir
+        for txt in txt_paths: #for each txt file
+            lang = re.search('afr|eng|nso|nbl|sep|ssw|tsn|tso|ven|xho|zul', txt).group() # what lang is it 
+            if lang not in filepaths_dictionary.keys(): # if lang is not present in dict
+                filepaths_dictionary[lang] = {edition : [txt]} # create end : { 2020-01-ed1 : [eng-01.txt, eng-02.txt]}
+            elif edition not in filepaths_dictionary[lang].keys(): # if edition is not in lang.keys 
+                filepaths_dictionary[lang][edition] = [txt] # create  {2020-01-ed1 : [eng-01.txt, eng-02.txt]}
             else: 
-                filepaths_dictionary[lang][edition].append(txt)
+                filepaths_dictionary[lang][edition].append(txt) # add to edition list 2020-01-ed1 : [eng-01.txt] -> 2020-01-ed1 : [eng-01.txt, eng-02.txt]
 
-    return filepaths_dictionary
+    return filepaths_dictionary 
 
 def read_file_as_string(edition_path, txt_path): # -> str
     """

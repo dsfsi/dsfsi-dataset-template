@@ -47,6 +47,8 @@ def two_lang_alignment(src_lang, tgt_lang, edition):
     # tgt_txts: ['2020-05-ed2-vukuzenzele-afr-02.txt', '2020-05-ed2-vukuzenzele-afr-01.txt]
     # the problem is they are not aligned - you will get an error trying to align 'eng-01' and 'afr-02'
     # so the messy code rectifies that
+    #
+    # I just discovered the python .sort method but I am much too tired to refactor this right now
 
     for src in src_txt_paths: # for each path in src_txt's
         src_match_no = re.search('\d{2,}\.txt$',src) # find the '001.txt' at the end of the src_path

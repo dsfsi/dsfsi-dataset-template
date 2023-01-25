@@ -18,7 +18,6 @@ lang_mappings = {
 
 
 if __name__ == "__main__":
-    # os.environ['LASER'] = '{}/LASER'.format(os.getcwd())
 
     # setup laser
     laser_config.set_environ_var()
@@ -29,7 +28,8 @@ if __name__ == "__main__":
     
     # create directories dictionary
     filepaths_dictionary = file_handler.build_filepaths_dictonary()
-    edition_keys = file_handler.fetch_data_edition_filepaths();
+    last_date = file_handler.extract_latest_edition()
+    edition_keys = file_handler.fetch_data_edition_filepaths(last_date);
 
     # perform tokenisation
     for edition in edition_keys:
@@ -57,15 +57,18 @@ if __name__ == "__main__":
                     sentence_alignment.two_lang_alignment(first_lang, sec_lang, edition)
 
 
-    # perform basic sentece alignment on tokenised sentences
+    # # perform basic sentece alignment on tokenised sentences
     for first_lang in languages:
         for sec_lang in languages:
             if first_lang != sec_lang:
                 for edition in edition_keys:
                     sentence_alignment.simple_langs_alignment(first_lang, sec_lang, edition)
 
-    file_handler.write_latest_edition(edition_keys[len(edition_keys-1)])
+    # write last edition reviewed to file so as not to review in future
+    file_handler.write_latest_edition(edition_keys[len(edition_keys)-1])
     
+
+
     # for directory in root_dirs:
     #     listdir = os.listdir("../../data/tokenised/{}".format(directory))
     #     for text_txt in listdir:
