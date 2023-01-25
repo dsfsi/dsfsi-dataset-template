@@ -32,7 +32,7 @@ jobs:
 
     - name: execute script
       run: |
-      python3 src/sentence_alignment/main.py
+        python3 src/sentence_alignment/main.py
 
     - name: commit & push changes if any
       uses: stefanzweifel/git-auto-commit-action@v4
