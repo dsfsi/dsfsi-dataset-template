@@ -4,7 +4,7 @@ from pathlib import Path
 from laser_config import laser_path
 from file_handler import root_path
 
-embed_data_path = Path(root_path / 'data' / 'embed')
+embed_data_path = Path('data' / 'embed')
 
 def encode_sentences(edition_path, txt_path, lang_model):
     """
