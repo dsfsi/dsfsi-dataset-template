@@ -4,7 +4,7 @@ from pathlib import Path
 from laser_config import laser_path
 from file_handler import root_path
 
-embed_data_path = Path('data/embed')
+embed_data_path = Path(root_path / 'data' / 'embed')
 
 def encode_sentences(edition_path, txt_path, lang_model):
     """
@@ -17,8 +17,12 @@ def encode_sentences(edition_path, txt_path, lang_model):
         -   lang_model: the lang model to be used in the encoding (str)
     """
 
+    if not os.path.exists(Path(embed_data_path)): # if data/embed doesn't exist
+        os.makedirs(Path(embed_data_path )) # make it 
+
     if not os.path.exists(Path(embed_data_path / edition_path)): # if data/embed/edition doesn't exist
         os.makedirs(Path(embed_data_path / edition_path)) # make it 
+        
     output_path = Path(embed_data_path / edition_path / txt_path) # the path to output
 
     command = f'bash {laser_path}/tasks/embed/embed.sh ' # the command without params
