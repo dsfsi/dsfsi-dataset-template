@@ -31,7 +31,7 @@ jobs:
         run: |
           python3 src/sentence_alignment/main.py
 
-      - name: Commit and push the changes into the repository (master branch) if there are any
+      - name: commit changes if any
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "Updated sentence_align files on `date` with GitHub Actions"

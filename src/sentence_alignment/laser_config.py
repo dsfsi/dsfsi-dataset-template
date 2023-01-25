@@ -9,6 +9,8 @@ def set_environ_var():
     ### Sets enviroment variable for use within the LASER module
     """
     os.environ['LASER'] = str(laser_path)
+    os.environ['LC_ALL']='C.UTF-8'
+    os.environ['LANG']='C.UTF-8'
 
 def setup_laser():
     """
