@@ -6,17 +6,20 @@ def fix_end_of_sentence(text: str): # -> str
   ### Adds a space after the end of a sentence without a space
   #### Example
   The tokeniser will interpret this as a whole sentence.A human reader can detect the missing space.
+
+  It also doesn't make .co.za & co.za split up because that would be lame.
   """
-  end_of_sentece_chars = ['.','?','!']
-  i = 0
-  while i < len(text)-1:
-    if text[i] in end_of_sentece_chars:
-      if (ord(text[i+1]) >= 97 and ord(text[i+1]) <= 122): 
-        if re.search('[a-z]\.co\.za',text[i-1:i+6]) or re.search('\.co\.za',text[i-3:i+3]):
+  end_of_sentece_chars = ['.','?','!'] #Chars a sentence could end with
+  i = 0 #index
+  while i < len(text)-1: #while i less the length minus 1 because we refer to i+1 in the body
+    if text[i] in end_of_sentece_chars: #if text[char] is the end of a sentence
+      if (ord(text[i+1]) >= 97 and ord(text[i+1]) <= 122): # check if char in front of sentence bewtween a-z
+        if re.search('[a-z]\.co\.za',text[i-1:i+6]) or re.search('\.co\.za',text[i-3:i+3]): #if it's actually an SA email address or website
           i+=1
-          continue
-        text = ' '.join([text[:i+1], text[i+1:]])
-    i+=1
+          continue # skip rest of loop
+        text = ' '.join([text[:i+1], text[i+1:]]) # add a space between the sentence and following char
+    i+=1 #Onto the next char
+
   return text
     
 
@@ -35,5 +38,6 @@ def pre_process_text(text): # -> str
   return text
 
 def tokenise(text): # -> str
-  return nltk.tokenize.sent_tokenize(pre_process_text(text))
+  text = pre_process_text(text) # clean data
+  return nltk.tokenize.sent_tokenize(text) #tokenise data
 

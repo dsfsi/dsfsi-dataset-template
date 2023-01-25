@@ -1,0 +1,27 @@
+# Dockerfile for testing sentence_alignemt
+
+## Background
+
+The LASER module requires a specific runtime env in order to install all the packages required by it. That enviroment is Ubuntu 20.04(.5) and Python 3.8(.10). 
+
+If you do not feel like spending day's trying to get your computer to adhere to those standards, you can try out this docker file. 
+
+**Be warned - I coded this dockerfile but it still gives me errors when trying to install the laser packages.**
+
+The issue is with a package named `fairseq`. 
+We need `fairseq==0.12.1` but there is something or other about `version.txt` missing.
+It was documented in this [Github thread](https://github.com/facebookresearch/fairseq/issues/4501).   
+The resolution was a version upgrade to `fairseq==0.12.2` but that causes a different error when trying to perform the embeddings. The new error was documented in this [Stackoverflow thread](https://stackoverflow.com/questions/74740896/fairseq-generate-giving-me-the-error-runtimeerror-mask-type-should-be-defined).  
+The resolution is to downgrade to `fairseq==0.12.1` 
+
+Have fun! 
+
+## To build this docker image
+
+From the `src/sentence_alignment` dir, run the following command:
+`docker build -t vukuzenzele dockerfile`
+
+## To access this docker image
+
+From the `src/sentence_alignment` dir, run the following command:
+`docker run -it vukuzenzele`

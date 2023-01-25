@@ -1,4 +1,4 @@
-import config, file_handler, sentence_tokenisation, sentence_embedding, os, re
+import laser_config, file_handler, sentence_tokenisation, sentence_embedding, sentence_alignment, os, re, pathlib
 
 languages = ['afr', 'eng', 'nbl', 'nso', 'sep', 'ssw', 'tsn', 'tso', 'ven', 'xho', 'zul']
 
@@ -18,37 +18,66 @@ lang_mappings = {
 
 
 if __name__ == "__main__":
-    os.environ['LASER'] = '{}/LASER'.format(os.getcwd())
 
-    # setup
-    # config.setup_laser()
-    config.download_laser_models(lang_mappings)
-    config.download_tokeniser()
-
+    # setup laser
+    laser_config.set_environ_var()
+    laser_config.setup_laser()
+    laser_config.download_laser_models(lang_mappings)
+    laser_config.download_tokeniser()
+    
+    
     # create directories dictionary
-    root_dirs = file_handler.fetch_data_root_filepaths()
-    full_dict = file_handler.compile_full_lang_dict()
+    filepaths_dictionary = file_handler.build_filepaths_dictonary()
+    last_date = file_handler.extract_latest_edition()
+    edition_keys = file_handler.fetch_data_edition_filepaths(last_date);
 
     # perform tokenisation
-    for lang in languages:
-        for directory in root_dirs:
-            if directory not in full_dict[lang].keys():
+    for edition in edition_keys:
+        for lang in languages:
+            if edition not in filepaths_dictionary[lang]:
                 continue
-            for edition in full_dict[lang][directory]:
-                text = file_handler.read_file(directory, edition)
+            for txt in filepaths_dictionary[lang][edition]:
+                text = file_handler.read_file_as_string(edition, txt)
                 tokens = sentence_tokenisation.tokenise(text)
-                path = edition
-                file_handler.write_tokens_to_txt(directory, path, tokens)
+                file_handler.write_tokens_to_txt(edition, txt, tokens)
 
-    for directory in root_dirs:
-        listdir = os.listdir("../../data/tokenised/{}".format(directory))
-        for text_txt in listdir:
-            match = re.search('nso|ssw|tsn|tso|xho|zul', text_txt)
-            output = text_txt
-            re.sub("\.txt","\.raw", output)
-            if match:
-                matched = match.group()
-                if not os.path.exists('../../data/embed/{}'.format(directory)):
-                    os.makedirs('../../data/embed/{}'.format(directory))
+    # perform LASER encoding
+    for edition in edition_keys:
+        for lang in lang_mappings.keys():
+            if edition not in filepaths_dictionary[lang]:
+                continue
+            for txt in filepaths_dictionary[lang][edition]:
+                sentence_embedding.encode_sentences(edition, txt, lang_mappings[lang])
 
-                sentence_embedding.embed_sentences(f'{directory}/{text_txt}', "../../data/embed/{}/{}".format(directory,output),lang_mappings[matched])
+    # perform SA on LASER encoded sentences
+    for first_lang in lang_mappings.keys():
+        for sec_lang in lang_mappings.keys():
+            if first_lang != sec_lang:
+                for edition in edition_keys:
+                    sentence_alignment.two_lang_alignment(first_lang, sec_lang, edition)
+
+
+    # # perform basic sentece alignment on tokenised sentences
+    for first_lang in languages:
+        for sec_lang in languages:
+            if first_lang != sec_lang:
+                for edition in edition_keys:
+                    sentence_alignment.simple_langs_alignment(first_lang, sec_lang, edition)
+
+    # write last edition reviewed to file so as not to review in future
+    file_handler.write_latest_edition(edition_keys[len(edition_keys)-1])
+    
+
+
+    # for directory in root_dirs:
+    #     listdir = os.listdir("../../data/tokenised/{}".format(directory))
+    #     for text_txt in listdir:
+    #         match = re.search('nso|ssw|tsn|tso|xho|zul', text_txt)
+    #         output = text_txt
+    #         re.sub("\.txt","\.raw", output)
+    #         if match:
+    #             matched = match.group()
+    #             if not os.path.exists('../../data/embed/{}'.format(directory)):
+    #                 os.makedirs('../../data/embed/{}'.format(directory))
+    #             sentence_embedding.embed_sentences(f'{directory}/{text_txt}', "../../data/embed/{}/{}".format(directory,output),lang_mappings[matched])
+
