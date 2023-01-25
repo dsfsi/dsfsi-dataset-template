@@ -3,40 +3,39 @@ name: perform sentence alignment
 on:
   push:
     branches:
-      - 'master'
+      - "master"
   workflow_dispatch:
-    
 
-jobs: 
+jobs:
   sentece_alignmet:
     name: perform sentence alignment
     runs_on: ubuntu-latest
 
     steps:
-    - name: checkout repo content
-      uses: actions/checkout@v2 
+      - name: checkout repo content
+        uses: actions/checkout@v2
 
-    - name: setup python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.8' 
-        
-    - name: install python packages
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.8"
 
-    - name: install ubuntu packages
-      run: |
-        sudo apt-get install build-essential
-        sudo apt-get install cmake
-        sudo apt-get install zip
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-    - name: execute script
-      run: |
-        python3 src/sentence_alignment/main.py
+      - name: install ubuntu packages
+        run: |
+          sudo apt-get install build-essential
+          sudo apt-get install cmake
+          sudo apt-get install zip
 
-    - name: Commit and push the changes into the repository (master branch) if there are any
-      uses: stefanzweifel/git-auto-commit-action@v4
-      with:
-        commit_message: "Updated sentence_align files on `date` with GitHub Actions"
+      - name: execute script
+        run: |
+          python3 src/sentence_alignment/main.py
+
+      - name: Commit and push the changes into the repository (master branch) if there are any
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Updated sentence_align files on `date` with GitHub Actions"

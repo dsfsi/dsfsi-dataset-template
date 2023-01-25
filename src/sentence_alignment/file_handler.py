@@ -42,7 +42,7 @@ def fetch_data_edition_filepaths(): # -> list[str]
     #### Example filepath: `2020-01-ed1`
     """
     last_date = extract_latest_edition()
-    all_paths = os.listdir(raw_data_path) #list the directories in /data/processed
+    all_paths = os.listdir(raw_data_path) # list the directories in /data/processed
     all_paths.remove('.gitkeep') 
 
     edition_paths = []
@@ -58,7 +58,7 @@ def fetch_data_txt_filepaths(edition): # -> list[str]
     #### Params 
         -   `edition` is the different editions of the magazine stored in data/processed
     """
-    txt_paths = os.listdir('{}/{}'.format(raw_data_path, edition)) #list the directories in /data/processed
+    txt_paths = os.listdir('{}/{}'.format(raw_data_path, edition)) # list the directories in /data/processed/edition
     return txt_paths
 
 def build_filepaths_dictonary():
@@ -103,7 +103,7 @@ def read_file_as_string(edition_path, txt_path): # -> str
     """
     ### Reads file as a single string. 
 
-    Generally used to feed a single line text to the tokeniser
+    Generally used to read file as string to be passed to tokeniser
     """
     file_path = Path(raw_data_path / edition_path / txt_path)
     return open(file_path, 'r').read() 
