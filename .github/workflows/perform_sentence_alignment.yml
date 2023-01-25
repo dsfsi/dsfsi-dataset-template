@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  # sentence_alignmet:
-  #   name: perform sentence alignment
-  #   runs_on: ubuntu-latest
+  sentence_alignmet:
+    name: perform sentence alignment
+    runs_on: ubuntu-latest
   #   steps:
   #     - name: checkout repo content
   #       uses: actions/checkout@v2
