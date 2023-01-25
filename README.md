@@ -15,6 +15,19 @@ The datasets contain government magazine editions in 11 languages, namely:
 | isiZulu    | (zul) | Xitstonga  | (tso) |
 | Sesotho    | (nso) |
 
+
+The dataset is present in several forms on the repo. 
+Generally the dataset is split by edition, eg. `2020-01-ed1`  
+The data directory is broken down as follows
+```
+./data
+├── external                # Data external to this repo
+├── interim                 # I am not really sure - looks like interim in regards to processed.
+├── processed               # The data from scraping the raw pdfs
+├── raw                     # The raw pdfs of the Vuk'uzenzele magazine
+├── sentence_align_output   # The output (csv) of a the sentence alignment with LASER language encoders
+└── simple_align_output     # The output (csv) of a simple one to one sentence alignment
+```
 The dataset is split by edition in the [data/processed](data/processed/) folder.
 
 Authors
@@ -26,9 +39,9 @@ Authors
 
 Citation
 --------
-Vukosi Marivate, Andani Madodonga, Daniel (last name needed), Richard Lastrucci. **Magazine editions from the SA governement magazine Vuk'uzenzele in multiple languages**, 2023
+Vukosi Marivate, Andani Madodonga, Daniel (last name needed), Richard Lastrucci. **Editions from the SA governement magazine Vuk'uzenzele in multiple languages**, 2023
 
 Licences
 -------
-* License for Data - [CC 4.0 BY SA](LICENSE_data.md)
-* Licence for Code - [MIT License](LICENSE)
+* License for Data - [CC 4.0 BY SA](LICENSE.data.md)
+* Licence for Code - [MIT License](LICENSE.md)
