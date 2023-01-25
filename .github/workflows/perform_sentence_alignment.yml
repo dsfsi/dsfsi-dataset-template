@@ -2,8 +2,10 @@ name: perform sentence alignment
 
 on:
     push:
-        branches:
-            -   'master'
+      branches:
+        - 'master'
+    workflow_dispatch:
+    
 
 jobs: 
   sentece_alignmet:
