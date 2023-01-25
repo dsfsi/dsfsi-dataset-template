@@ -36,5 +36,4 @@ jobs:
 
     - name: commit & push changes if any
       uses: stefanzweifel/git-auto-commit-action@v4
-      with:
-        commit_message: ""Updated sentence_align files on `date` with GitHub Actions""
+      with: commit_message: "Updated sentence_align files on `date` with GitHub Actions"
