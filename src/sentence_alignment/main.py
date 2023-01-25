@@ -25,8 +25,8 @@ if __name__ == "__main__":
     laser_config.setup_laser()
     laser_config.download_laser_models(lang_mappings)
     laser_config.download_tokeniser()
-
-
+    
+    
     # create directories dictionary
     filepaths_dictionary = file_handler.build_filepaths_dictonary()
     edition_keys = file_handler.fetch_data_edition_filepaths();
@@ -42,12 +42,12 @@ if __name__ == "__main__":
                 file_handler.write_tokens_to_txt(edition, txt, tokens)
 
     # perform LASER encoding
-    # for edition in edition_keys:
-        # for lang in lang_mappings.keys():
-            # if edition not in filepaths_dictionary[lang]:
-                # continue
-            # for txt in filepaths_dictionary[lang][edition]:
-                # sentence_embedding.encode_sentences(edition, txt, lang_mappings[lang])
+    for edition in edition_keys:
+        for lang in lang_mappings.keys():
+            if edition not in filepaths_dictionary[lang]:
+                continue
+            for txt in filepaths_dictionary[lang][edition]:
+                sentence_embedding.encode_sentences(edition, txt, lang_mappings[lang])
 
     # perform SA on LASER encoded sentences
     for first_lang in lang_mappings.keys():
@@ -57,12 +57,14 @@ if __name__ == "__main__":
                     sentence_alignment.two_lang_alignment(first_lang, sec_lang, edition)
 
 
-    # perform basic sentece alignment on 
+    # perform basic sentece alignment on tokenised sentences
     for first_lang in languages:
         for sec_lang in languages:
             if first_lang != sec_lang:
                 for edition in edition_keys:
                     sentence_alignment.simple_langs_alignment(first_lang, sec_lang, edition)
+
+    file_handler.write_latest_edition(edition_keys[len(edition_keys-1)])
     
     # for directory in root_dirs:
     #     listdir = os.listdir("../../data/tokenised/{}".format(directory))

@@ -1,5 +1,6 @@
 import os, re, pandas
 from pathlib import Path
+from datetime import date
 
 root_path = Path(os.path.abspath(__file__)).parent.parent.parent # vukuzenzele/
 
@@ -10,13 +11,44 @@ simp_out_data_path = Path(root_path / 'data' / 'simple_align_output')  #data/sim
 
 languages = ['afr', 'eng', 'nbl', 'nso', 'sep', 'ssw', 'tsn', 'tso', 'ven', 'xho', 'zul'] # List of SA languages
 
+
+def extract_latest_edition():
+    return open(
+        Path(
+            Path(os.path.abspath(__file__)).parent #src/sentence_alignment
+            / 'last_edition_read.txt'
+        ),'r').read()
+
+def write_latest_edition(edition):
+    open(
+        Path(
+            Path(os.path.abspath(__file__)).parent #src/sentence_alignment
+            / 'last_edition_read.txt'
+        ),'w').write(edition)
+
+def build_date(edition):
+    edition_date = re.search('^\d{4}-\d{2}', edition).group()
+    edition_no = re.search('\d$',edition).group()
+
+    year = re.search('^\d{4}', edition_date).group()
+    month = re.search('\d{2}$', edition_date).group()
+    day = edition_no
+
+    return date(int(year), int(month), int(day))
+
 def fetch_data_edition_filepaths(): # -> list[str]
     """
-    ### Compiles a list of file directories present in the /data/processed folder
+    ### Compiles a list of file directories present in the /data/processed folder after the date present in /last_edition_read.txt
     #### Example filepath: `2020-01-ed1`
     """
-    edition_paths = os.listdir(raw_data_path) #list the directories in /data/processed
-    edition_paths.remove('.gitkeep') 
+    last_date = extract_latest_edition()
+    all_paths = os.listdir(raw_data_path) #list the directories in /data/processed
+    all_paths.remove('.gitkeep') 
+
+    edition_paths = []
+    for path in all_paths:
+        if build_date(path) > build_date(last_date):
+            edition_paths.append(path)
     return edition_paths
 
 def fetch_data_txt_filepaths(edition): # -> list[str]

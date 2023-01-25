@@ -9,18 +9,19 @@ The encoded and basic output data is stored in `data/sentence_align_output` and 
 
 ```
 src/sentence_alignment/
-├── LASER # LASER module from Facebook Research (https://github.com/facebookresearch/LASER)
+├── LASER                     # LASER module from Facebook Research
 ├── README 
-├── docker # a Docker file to make working with LASER easier, hopefully
+├── last_edition_read.txt     # txt to keep track of last edition read for Github Actions
+├── docker                    # a Docker file to make working with LASER easier, hopefully
 │   ├── Dockerfile 
 │   ├── README
-│   └── req.txt # requirements needed, probably missing some req's
-├── main.py # script executing the logic of the sentence alignment scripts listed below
-├── file_handler.py # script to deal with various reading and writing of .txt's & .csv's
-├── laser_config.py # script to config Laser module, download available encoders & tokeniser
-├── sentence_alignment.py # script to perform alignment of sentences for both encoded and plaintext sentences 
-├── sentence_embedding.py # script to perform encoding and decoding of extracted data in data/processed
-└── sentence_tokenisation.py # script to perform cleaning & tokenisation of extracted data in data/processed
+│   └── req.txt               # requirements needed, probably missing some req's
+├── main.py                   # script executing the logic of the sentence alignment scripts listed below
+├── file_handler.py           # script to deal with various reading and writing of .txt's & .csv's
+├── laser_config.py           # script to config Laser module, download available encoders & tokeniser
+├── sentence_alignment.py     # script to perform alignment for both encoded and plaintext sentences 
+├── sentence_embedding.py     # script to perform encoding and decoding of extracted data in data/processed
+└── sentence_tokenisation.py  # script to perform cleaning & tokenisation of extracted data in data/processed
 ```
 
 ## Overview of logic used
