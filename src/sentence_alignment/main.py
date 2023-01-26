@@ -44,12 +44,12 @@ if __name__ == "__main__":
                     file_handler.write_tokens_to_txt(edition, txt, tokens)
 
         # perform LASER encoding
-        # for edition in edition_keys:
-        #     for lang in lang_mappings.keys():
-        #         if edition not in filepaths_dictionary[lang]:
-        #             continue
-        #         for txt in filepaths_dictionary[lang][edition]:
-        #             sentence_embedding.encode_sentences(edition, txt, lang_mappings[lang])
+        for edition in edition_keys:
+            for lang in lang_mappings.keys():
+                if edition not in filepaths_dictionary[lang]:
+                    continue
+                for txt in filepaths_dictionary[lang][edition]:
+                    sentence_embedding.encode_sentences(edition, txt, lang_mappings[lang])
 
         # perform SA on LASER encoded sentences
         for first_lang in lang_mappings.keys():
