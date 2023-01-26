@@ -26,10 +26,9 @@ def encode_sentences(edition_path, txt_path, lang_model):
     output_path = Path(embed_data_path / edition_path / txt_path) # the path to output
 
 
-    print('is there where I am breaking??\n\n\n\n\n')
     if (os.path.exists(Path(embed_data_path))):
-        print(embed_data_path + ' does in fact exist')
-    print(embed_data_path + ' does not in fact exist')
+        print('{} does in fact exist'.format(embed_data_path))
+    else: print('{} does not, in fact, exist'.format(embed_data_path))
     command = f'bash {laser_path}/tasks/embed/embed.sh ' # the command without params
     command += "{} {} {}".format(Path(embed_data_path / edition_path / txt_path), output_path, lang_model) # add params which are source text, output path & lang model
     subprocess.run(command, shell=True) # run the bash command using the shell
