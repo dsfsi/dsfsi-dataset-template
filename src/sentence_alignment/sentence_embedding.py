@@ -2,7 +2,7 @@ import subprocess, os, numpy
 from pathlib import Path
 
 from laser_config import laser_path
-from file_handler import root_path
+from file_handler import root_path, token_data_path
 
 embed_data_path = Path(root_path / 'data' / 'embed')
 
@@ -24,11 +24,12 @@ def encode_sentences(edition_path, txt_path, lang_model):
         os.makedirs(Path(embed_data_path / edition_path)) # make it 
 
     output_path = Path(embed_data_path / edition_path / txt_path) # the path to output
-    
+    input_path = Path(token_data_path / edition_path / txt_path) # the path to tokenised sentences
+
     print("\n\n{}\n\n".format(output_path))
 
     command = f'bash {laser_path}/tasks/embed/embed.sh ' # the command without params
-    command += "{} {} {}".format(Path(embed_data_path / edition_path / txt_path), output_path, lang_model) # add params which are source text, output path & lang model
+    command += "{} {} {}".format(input_path, output_path, lang_model) # add params which are source text, output path & lang model
     subprocess.run(command, shell=True) # run the bash command using the shell
     
 def decode_sentences(edition_path, txt_path):
