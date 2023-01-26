@@ -24,11 +24,9 @@ def encode_sentences(edition_path, txt_path, lang_model):
         os.makedirs(Path(embed_data_path / edition_path)) # make it 
 
     output_path = Path(embed_data_path / edition_path / txt_path) # the path to output
+    
+    print("\n\n{}\n\n".format(output_path))
 
-
-    if (os.path.exists(Path(embed_data_path))):
-        print('{} does in fact exist'.format(embed_data_path))
-    else: print('{} does not, in fact, exist'.format(embed_data_path))
     command = f'bash {laser_path}/tasks/embed/embed.sh ' # the command without params
     command += "{} {} {}".format(Path(embed_data_path / edition_path / txt_path), output_path, lang_model) # add params which are source text, output path & lang model
     subprocess.run(command, shell=True) # run the bash command using the shell

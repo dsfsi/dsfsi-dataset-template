@@ -1,6 +1,7 @@
 # sentence_alignment requirements
 faiss-cpu
 fairseq==0.12.1
+tensorboardX
 transliterate
 tabulate
 scikit-learn
