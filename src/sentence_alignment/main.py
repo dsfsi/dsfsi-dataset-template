@@ -27,6 +27,7 @@ if __name__ == "__main__":
     edition_keys = file_handler.fetch_data_edition_filepaths(last_date);
 
     if len(edition_keys) > 0:
+        print('performing sentece aligment on new edtions...')
          # setup laser
         laser_config.set_environ_var()
         laser_config.setup_laser()
@@ -68,4 +69,5 @@ if __name__ == "__main__":
 
         # write last edition reviewed to file so as not to review in future
         file_handler.write_latest_edition(edition_keys[len(edition_keys)-1])
+    else: print('No new editions present to perform sentence alignment')
 
