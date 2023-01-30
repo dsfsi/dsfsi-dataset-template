@@ -3,24 +3,22 @@ import laser_config, file_handler, sentence_tokenisation, sentence_embedding, se
 languages = ['afr', 'eng', 'nbl', 'nso', 'sep', 'ssw', 'tsn', 'tso', 'ven', 'xho', 'zul']
 
 lang_mappings = {
-                    # 'afr' : 'afr_Latn',
-                    # 'eng' : 'eng_Latn',
-                    # 'nbl' : 'nbl_Latn',
-                    'nso' : 'sot_Latn',
-                    # 'sep' : 'sep_Latn',
-                    'ssw' : 'ssw_Latn',
-                    'tsn' : 'tsn_Latn',
-                    'tso' : 'tso_Latn',
-                    # 'ven' : 'ven_Latn',
-                    'xho' : 'xho_Latn',
-                    'zul' : 'zul_Latn',
+                    'afr' : '',
+                    'eng' : '',
+                    'nbl' : '',
+                    # 'nso' : 'sot_Latn',
+                    'sep' : '',
+                    # 'ssw' : 'ssw_Latn',
+                    # 'tsn' : 'tsn_Latn',
+                    # 'tso' : 'tso_Latn',
+                    'ven' : '',
+                    # 'xho' : 'xho_Latn',
+                    # 'zul' : 'zul_Latn',
                 } 
 
 
 if __name__ == "__main__":
-
    
-    
     # create directories dictionary
     filepaths_dictionary = file_handler.build_filepaths_dictonary()
     last_date = file_handler.extract_latest_edition()
@@ -61,11 +59,11 @@ if __name__ == "__main__":
 
 
         # # perform basic sentece alignment on tokenised sentences
-        for first_lang in languages:
-            for sec_lang in languages:
-                if first_lang != sec_lang:
-                    for edition in edition_keys:
-                        sentence_alignment.simple_langs_alignment(first_lang, sec_lang, edition)
+        # for first_lang in languages:
+        #     for sec_lang in languages:
+        #         if first_lang != sec_lang:
+        #             for edition in edition_keys:
+        #                 sentence_alignment.simple_langs_alignment(first_lang, sec_lang, edition)
 
         # write last edition reviewed to file so as not to review in future
         file_handler.write_latest_edition(edition_keys[len(edition_keys)-1])
