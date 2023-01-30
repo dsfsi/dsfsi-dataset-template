@@ -29,7 +29,7 @@ if __name__ == "__main__":
          # setup laser
         laser_config.set_environ_var()
         laser_config.setup_laser()
-        laser_config.download_laser_models(lang_mappings)
+        # laser_config.download_laser_models(lang_mappings)
         laser_config.download_tokeniser()
 
         # perform tokenisation
