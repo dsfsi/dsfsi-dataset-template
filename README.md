@@ -25,7 +25,7 @@ The data directory is broken down as follows
 ├── interim                 # I am not really sure - looks like interim in regards to processed.
 ├── processed               # The data from scraping the raw pdfs
 ├── raw                     # The raw pdfs of the Vuk'uzenzele magazine
-├── sentence_align_output   # The output (csv) of a the sentence alignment with LASER language encoders
+├── sentence_align_output   # The output (csv) of the sentence alignment with LASER language encoders
 └── simple_align_output     # The output (csv) of a simple one to one sentence alignment
 ```
 The dataset is split by edition in the [data/processed](data/processed/) folder.

@@ -22,6 +22,7 @@ def setup_laser():
     else: 
         command = f'bash {laser_path}/install_models.sh'
         subprocess.run(command, shell=True)
+        
     if (os.path.exists(f'{laser_path}/tools-external')):
         print('LASER/tools-external dir found, skipping installation')
     else: 
