@@ -1,4 +1,4 @@
-# Magazine editions from the SA governement magazine Vuk'uzenzele in multiple languages
+# The Vuk'uzenzele South African Multilingual Corpus
 
 ## About dataset
 The dataset contains editions from the South African government magazine Vuk'uzenzele. Data was scraped from PDFs that have been placed in the [data/raw](data/raw/) folder.
