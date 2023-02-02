@@ -79,6 +79,7 @@ target/
 data/*
 !data/sentence_align_output/
 !data/simple_align_output/
+!data/embed/
 
 # Mac OS-specific storage files
 .DS_Store
