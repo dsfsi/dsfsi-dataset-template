@@ -34,7 +34,7 @@ Authors
 -------
 - Vukosi Marivate - [@vukosi](https://twitter.com/vukosi)
 - Andani Madodonga
-- Daniel (last name needed)
+- Daniel Njini
 - Richard Lastrucci
 
 Citation
