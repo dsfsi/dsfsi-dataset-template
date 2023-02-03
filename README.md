@@ -1,4 +1,4 @@
-# Magazine editions from the SA governement magazine Vuk'uzenzele in multiple languages
+# The Vuk'uzenzele South African Multilingual Corpus
 
 ## About dataset
 The dataset contains editions from the South African government magazine Vuk'uzenzele. Data was scraped from PDFs that have been placed in the [data/raw](data/raw/) folder.
@@ -34,12 +34,12 @@ Authors
 -------
 - Vukosi Marivate - [@vukosi](https://twitter.com/vukosi)
 - Andani Madodonga
-- Daniel (last name needed)
+- Daniel Njini
 - Richard Lastrucci
 
 Citation
 --------
-Vukosi Marivate, Andani Madodonga, Daniel (last name needed), Richard Lastrucci. **Editions from the SA governement magazine Vuk'uzenzele in multiple languages**, 2023
+Vukosi Marivate, Andani Madodonga, Daniel Njini, Richard Lastrucci. **Editions from the SA governement magazine Vuk'uzenzele in multiple languages**, 2023
 
 Licences
 -------
