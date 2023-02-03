@@ -40,6 +40,8 @@ def two_lang_alignment(src_lang, tgt_lang, edition):
     
     src_txt_paths = filepaths_dictionary[src_lang][edition] # fetch the list of editions in the source lang
     tgt_txt_paths = filepaths_dictionary[tgt_lang][edition] # fetch the list of editions in the target lang
+    src_txt_paths.sort()
+    tgt_txt_paths.sort()
 
     # some explaination for the mess of code underneath
     # an example of the variables src_txt_paths & tgt_txt_paths are:
@@ -50,26 +52,21 @@ def two_lang_alignment(src_lang, tgt_lang, edition):
     #
     # I just discovered the python .sort method but I am much too tired to refactor this right now
 
-    for src in src_txt_paths: # for each path in src_txt's
-        src_match_no = re.search('\d{2,}\.txt$',src) # find the '001.txt' at the end of the src_path
-        if src_match_no: # if there is a match
-            for tgt in tgt_txt_paths: # for each path in tgt_txt's
-                tgt_match_no = re.search('\d{2,}\.txt$',tgt) # find the '001.txt' at the end of the tgt_path
-                if src_match_no.group() == tgt_match_no.group(): # if the two match_no's match
-                    src_vector = sentence_embedding.decode_sentences(edition, src) # decode the src vector from the data/embed folder
-                    src_sentences = file_handler.read_file_as_array(edition, src) # read the token sentences as array from data/tokenised folder
-                    tgt_sentences = file_handler.read_file_as_array(edition, tgt) # read the token sentences as array from data/tokenised folder
-                    tgt_vector = sentence_embedding.decode_sentences(edition, tgt) # decode the tgt vector from the data/embed folder
-                    if len(src_vector) == len(tgt_vector) == len(src_sentences) == len(tgt_sentences): # if all the lists and vectors are the same length
-                        sim_scores = perform_cosine_similarity(src_vector, tgt_vector) # obtain the list of similarity scores
-                        file_handler.append_to_final_csv(src_lang,  #append all to csv
-                                                        src_sentences, 
-                                                        src_vector.tolist(), # turn the numpy arr into a list
-                                                        tgt_lang, 
-                                                        tgt_sentences, 
-                                                        tgt_vector.tolist(), 
-                                                        sim_scores)
-                    
+    for i in range(len(src_txt_paths)-1):
+        src_vector = sentence_embedding.decode_sentences(edition, src_txt_paths[i]) # decode the src vector from the data/embed folder
+        src_sentences = file_handler.read_file_as_array(edition, src_txt_paths[i]) # read the token sentences as array from data/tokenised folder
+        tgt_sentences = file_handler.read_file_as_array(edition, tgt_txt_paths[i]) # read the token sentences as array from data/tokenised folder
+        tgt_vector = sentence_embedding.decode_sentences(edition, tgt_txt_paths[i]) # decode the tgt vector from the data/embed folder
+        if len(src_vector) == len(tgt_vector) == len(src_sentences) == len(tgt_sentences): # if all the lists and vectors are the same length
+            sim_scores = perform_cosine_similarity(src_vector, tgt_vector) # obtain the list of similarity scores
+            file_handler.append_to_final_csv(src_lang,  #append all to csv
+                                            src_sentences, 
+                                            src_vector.tolist(), # turn the numpy arr into a list
+                                            tgt_lang, 
+                                            tgt_sentences, 
+                                            tgt_vector.tolist(), 
+                                            sim_scores)
+        
 def simple_langs_alignment(src_lang, tgt_lang, edition):
     """
     ### Performs very very very basic alignment on two languages just using the tokenised .txt's
@@ -81,20 +78,18 @@ def simple_langs_alignment(src_lang, tgt_lang, edition):
     
     src_txt_paths = filepaths_dictionary[src_lang][edition] # fetch the list of editions in the source lang
     tgt_txt_paths = filepaths_dictionary[tgt_lang][edition] # fetch the list of editions in the target lang
-
+    src_txt_paths.sort()
+    tgt_txt_paths.sort()
 
     # similar code to 'def two_lang_alignment():'
+    for i in range(len(src_txt_paths)-1):
+        src_sentences = file_handler.read_file_as_array(edition, src_txt_paths[i]) # get the source sentences from data/tokenised
+        tgt_sentences = file_handler.read_file_as_array(edition, tgt_txt_paths[i]) # get the target sentences from data/tokenised
+        if len(src_sentences) == len(tgt_sentences): # if the list are the same length
+            file_handler.append_to_simple_csv(src_lang, src_sentences, tgt_lang, tgt_sentences) # append to simple .csv's
 
-    for src in src_txt_paths: # for each path in src_txt's
-        src_match_no = re.search('\d{2,}\.txt$',src) # find the '001.txt' at the end of the src_path
-        if src_match_no: # if there is a match
-            for tgt in tgt_txt_paths: # for each path in tgt_txt's
-                tgt_match_no = re.search('\d{2,}\.txt$',tgt) # find the '001.txt' at the end of the tgt_path
-                if src_match_no.group() == tgt_match_no.group(): # if the two match_no's match
-                    src_sentences = file_handler.read_file_as_array(edition, src) # get the source sentences from data/tokenised
-                    tgt_sentences = file_handler.read_file_as_array(edition, tgt) # get the target sentences from data/tokenised
-                    if len(src_sentences) == len(tgt_sentences): # if the list are the same length
-                        file_handler.append_to_simple_csv(src_lang, src_sentences, tgt_lang, tgt_sentences) # append to simple .csv's
+
+
 
     
     
