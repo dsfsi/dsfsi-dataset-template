@@ -39,7 +39,8 @@ Authors
 
 Citation
 --------
-Vukosi Marivate, Andani Madodonga, Daniel Njini, Richard Lastrucci. **Editions from the SA governement magazine Vuk'uzenzele in multiple languages**, 2023
+Vukosi Marivate, Andani Madodonga, Daniel Njini, Richard Lastrucci, Isheanesu Dzingirai
+. **The Vuk'uzenzele South African Multilingual Corpus**, 2023
 
 Licences
 -------
