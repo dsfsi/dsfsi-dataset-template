@@ -43,6 +43,20 @@ Citation
 Vukosi Marivate, Andani Madodonga, Daniel Njini, Richard Lastrucci, Isheanesu Dzingirai
 . **The Vuk'uzenzele South African Multilingual Corpus**, 2023
 
+> @dataset{marivate_vukosi_2023_7598540,
+  author       = {Marivate, Vukosi and
+                  Njini, Daniel and
+                  Madodonga, Andani and
+                  Lastrucci, Richard and
+                  Dzingirai, Isheanesu},
+  title        = {The Vuk'uzenzele South African Multilingual Corpus},
+  month        = feb,
+  year         = 2023,
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.7598539},
+  url          = {https://doi.org/10.5281/zenodo.7598539}
+}
+
 Licences
 -------
 * License for Data - [CC 4.0 BY SA](LICENSE.data.md)
