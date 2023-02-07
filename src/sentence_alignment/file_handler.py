@@ -167,10 +167,10 @@ def append_to_final_csv(src_lang, src_sentences, src_vector, tgt_lang, tgt_sente
         -   sim_scores: confidence scores between the pairing (list)
     """
     data = {
-        src_lang : src_sentences,
-        tgt_lang : tgt_sentences,
-        '{}_vector'.format(src_lang) : src_vector,
-        '{}_vector'.format(tgt_lang) : tgt_vector,
+        src_lang : src_vector,
+        tgt_lang : tgt_vector,
+        'src_text' : src_sentences,
+        'tgt_text' : tgt_sentences,
         'cosine_score' : sim_scores
     } # build a dictonary of the info
 
@@ -202,3 +202,19 @@ def append_to_simple_csv(src_lang, src_sentences, tgt_lang, tgt_sentences):
         df.to_csv(Path(simp_out_data_path / csv_path), mode='a',header=False, index=False)
     else: 
         df.to_csv(Path(simp_out_data_path / csv_path), mode='w',header=True, index=False)
+
+def count_aligned_pairs():
+    with open("filtered_data.txt", 'w') as filtered_file:
+        csv_files = os.listdir(output_data_path)
+        filtered_file.write("|----------|----------|-------------------|\n")
+        filtered_file.write("| src_lang | trg_lang | num_aligned_pairs |\n")
+        filtered_file.write("|----------|----------|-------------------|\n")
+
+        for csv_file in csv_files:
+            df = pandas.read_csv(output_data_path / Path(csv_file))
+            df = df[df["cosine_score"] >= 0.65]
+            strip_file_name = re.split("[_.]", csv_file)
+
+            filtered_file.write("|" + " " + strip_file_name[1] +" " * 5 + " " + "|" + " " + strip_file_name[2] + " " * 5 + " " + "|" + " " + str(len(df)) + " " * (17 - len(str(len(df)))) + " " + "|\n")
+    
+        filtered_file.write("|----------|----------|-------------------|\n")

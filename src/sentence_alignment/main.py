@@ -25,6 +25,7 @@ if __name__ == "__main__":
     last_date = file_handler.extract_latest_edition()
     edition_keys = file_handler.fetch_data_edition_filepaths(last_date)
     language_pairs = list(combinations(languages, 2))
+    # file_handler.count_aligned_pairs()
 
 
     if len(edition_keys) > 0:
@@ -76,7 +77,6 @@ if __name__ == "__main__":
                 sentence_alignment.simple_langs_alignment(first_lang, sec_lang, edition)
         print("Simple aligning completed")
         
-
         # write last edition reviewed to file so as not to review in future
         file_handler.write_latest_edition(edition_keys[len(edition_keys)-1])
     else: print('No new editions present to perform sentence alignment')
