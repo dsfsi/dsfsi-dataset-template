@@ -97,18 +97,20 @@ Authors
 - Andani Madodonga
 - Daniel Njini
 - Richard Lastrucci
+- Isheanesu Dzingirai
+- Jenalea Rajab
 
 Citation
 --------
-Vukosi Marivate, Andani Madodonga, Daniel Njini, Richard Lastrucci, Isheanesu Dzingirai
-. **The Vuk'uzenzele South African Multilingual Corpus**, 2023
+Vukosi Marivate, Andani Madodonga, Daniel Njini, Richard Lastrucci, Isheanesu Dzingirai, Jenalea Rajab. **The Vuk'uzenzele South African Multilingual Corpus**, 2023
 
 > @dataset{marivate_vukosi_2023_7598540,
   author       = {Marivate, Vukosi and
                   Njini, Daniel and
                   Madodonga, Andani and
                   Lastrucci, Richard and
-                  Dzingirai, Isheanesu},
+                  Dzingirai, Isheanesu
+                  Rajab, Jenalea},
   title        = {The Vuk'uzenzele South African Multilingual Corpus},
   month        = feb,
   year         = 2023,
