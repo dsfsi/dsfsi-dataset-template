@@ -61,6 +61,8 @@ def fetch_data_edition_filepaths(last_date): # -> list[str]
     """
     all_paths = os.listdir(raw_data_path) # list the directories in /data/processed
     all_paths.remove('.gitkeep') # remove the .gitkeep
+    try: all_paths.remove('.DS_Store') 
+    except: pass # remove the .DS
     all_paths.sort() # sort them
 
     edition_paths = [] # empty list to append to
@@ -167,8 +169,6 @@ def append_to_final_csv(src_lang, src_sentences, src_vector, tgt_lang, tgt_sente
         -   sim_scores: confidence scores between the pairing (list)
     """
     data = {
-        src_lang : src_vector,
-        tgt_lang : tgt_vector,
         'src_text' : src_sentences,
         'tgt_text' : tgt_sentences,
         'cosine_score' : sim_scores
