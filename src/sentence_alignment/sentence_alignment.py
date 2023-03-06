@@ -4,17 +4,6 @@ from pathlib import Path
 
 filepaths_dictionary = file_handler.build_filepaths_dictonary() 
 
-def perform_cosine_similarity(src_vector, tgt_vector):
-    """
-    ### Performs cosine similarity on two vectors of sentence vectors
-    #### Params 
-        -   `src_vector`: The vector of sentence vectors in the one language (list(list(int))) 
-        -   `tgt_vector`: The vector of sentences vectors in the other language (list(list(int)))
-    """
-    sim_scores=[] # list to store results 
-    for i in range(len(src_vector)): # the vectors must be the same length in order to perform a valid operation
-        sim_scores.append(cosine_score(src_vector[i], tgt_vector[i])) # append the cosine score obtained from comparing sentence vectors
-    return sim_scores # return sim_scores list
 
 def cosine_score(src, tgt):        
     """
@@ -52,21 +41,50 @@ def two_lang_alignment(src_lang, tgt_lang, edition):
     #
     # I just discovered the python .sort method but I am much too tired to refactor this right now
 
+    
+    
+
     for i in range(len(src_txt_paths)-1):
         src_vector = sentence_embedding.decode_sentences(edition, src_txt_paths[i]) # decode the src vector from the data/embed folder
         src_sentences = file_handler.read_file_as_array(edition, src_txt_paths[i]) # read the token sentences as array from data/tokenised folder
         tgt_sentences = file_handler.read_file_as_array(edition, tgt_txt_paths[i]) # read the token sentences as array from data/tokenised folder
         tgt_vector = sentence_embedding.decode_sentences(edition, tgt_txt_paths[i]) # decode the tgt vector from the data/embed folder
-        if len(src_vector) == len(tgt_vector) == len(src_sentences) == len(tgt_sentences): # if all the lists and vectors are the same length
-            sim_scores = perform_cosine_similarity(src_vector, tgt_vector) # obtain the list of similarity scores
-            file_handler.append_to_final_csv(src_lang,  #append all to csv
-                                            src_sentences, 
-                                            src_vector.tolist(), # turn the numpy arr into a list
-                                            tgt_lang, 
-                                            tgt_sentences, 
-                                            tgt_vector.tolist(), 
-                                            sim_scores)
+        align(src_lang, tgt_lang, src_vector, tgt_vector, src_sentences, tgt_sentences)
+        # if len(src_vector) == len(tgt_vector) == len(src_sentences) == len(tgt_sentences): # if all the lists and vectors are the same length
+            # sim_scores = perform_cosine_similarity(src_vector, tgt_vector) # obtain the list of similarity scores
+            # file_handler.append_to_final_csv( #append all to csv
+        #                                     src_sentences,          
+        #                                     tgt_sentences, 
+        #                                     sim_scores)
         
+def align(src_lang, tgt_lang, src_vector, src_sentences, tgt_sentences, tgt_vector): 
+    used_sentences = []
+    loop_iter = min(len(src_vector), len(src_sentences), len(tgt_sentences), len(tgt_vector))
+
+    src = []
+    tgt = []
+    cos = []
+    for i in range(loop_iter): 
+        similarity_dict = {}
+        for j in range(loop_iter):
+            if j in used_sentences:
+                continue
+            else:
+                src_sent = src_sentences[i]
+                tgt_sent = tgt_sentences[i]
+                sim_score = cosine_score(src_sent,tgt_sent)
+                similarity_dict[j] = sim_score[0][0]
+
+        max_similar = max(similarity_dict, key = similarity_dict.get,default=0)
+        used_sentences.append(max_similar)
+
+        src.append(src_sentences[i])
+        tgt.append(src_sentences[max_similar])
+        cos.append(sim_score)
+
+    file_handler.append_to_final_csv(src_lang, src, tgt_lang, tgt, cos)
+
+    
 def simple_langs_alignment(src_lang, tgt_lang, edition):
     """
     ### Performs very very very basic alignment on two languages just using the tokenised .txt's

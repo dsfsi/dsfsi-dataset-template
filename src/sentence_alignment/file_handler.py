@@ -156,7 +156,7 @@ def write_tokens_to_txt(edition_path, txt_path, tokens): # -> None
         if not tokens[len(tokens)-1]==token: # the tokens seem to be missing newlines so if token is not the last token,
             new.write('\n')  # write a newline
 
-def append_to_final_csv(src_lang, src_sentences, src_vector, tgt_lang, tgt_sentences ,tgt_vector, sim_scores):
+def append_to_final_csv(src_lang, src_sentences, tgt_lang, tgt_sentences , sim_scores):
     """
     ### Appends to the ML aligned lang pairs .csv - creates it if it doesn't exist
     #### Params
