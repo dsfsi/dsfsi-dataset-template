@@ -7,6 +7,8 @@ from PyPDF2 import PdfReader
 def processPDF(fileName, storyNo, file, n1, n2):
     read = PdfReader(file, strict=False)
     base_path = Path(os.path.abspath(__file__)).parent.parent.parent
+    storyNo = padded_num = f"{int(storyNo):02d}"
+        
     file_name = fileName[:-4]+"-"+storyNo+".txt"
     directory = Path(base_path / "data" / "interim" / fileName[:11] / file_name)
     textFile = open(directory,"w", encoding=("utf-8"))
