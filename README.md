@@ -102,6 +102,19 @@ Authors
 
 Citation
 --------
+Preprint/Paper
+
+[Preparing the Vuk'uzenzele and ZA-gov-multilingual South African  multilingual corpora](https://arxiv.org/pdf/2303.03750)
+
+> @article{lastrucci2023preparing,
+  title   = {Preparing the Vuk'uzenzele and ZA-gov-multilingual South African multilingual corpora},
+  author  = {Richard Lastrucci and Isheanesu Dzingirai and Jenalea Rajab and Andani Madodonga and Matimba Shingange and Daniel Njini and Vukosi Marivate},
+  year    = {2023},
+  journal = {arXiv preprint arXiv: Arxiv-2303.03750}
+}
+
+Dataset
+
 Vukosi Marivate, Andani Madodonga, Daniel Njini, Richard Lastrucci, Isheanesu Dzingirai, Jenalea Rajab. **The Vuk'uzenzele South African Multilingual Corpus**, 2023
 
 > @dataset{marivate_vukosi_2023_7598540,
