@@ -1,5 +1,10 @@
 # The Vuk'uzenzele South African Multilingual Corpus
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7598539.svg)](https://doi.org/10.5281/zenodo.7598539)
+
+Github: [https://github.com/dsfsi/vukuzenzele-nlp/](https://github.com/dsfsi/vukuzenzele-nlp/)
+
+Zenodo: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7598539.svg)](https://doi.org/10.5281/zenodo.7598539)
+
+Arxiv Preprint: [![arXiv](https://img.shields.io/badge/arXiv-2303.03750-b31b1b.svg)](https://arxiv.org/abs/2303.03750)
 
 ## About dataset
 The dataset contains editions from the South African government magazine Vuk'uzenzele. Data was scraped from PDFs that have been placed in the [data/raw](data/raw/) folder.
