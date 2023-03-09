@@ -1,17 +1,22 @@
 import os, sys, getopt, re
-from PyPDF2 import PdfFileReader
+from pathlib import Path
+from PyPDF2 import PdfReader
             
 #==============================================================================
 #PDF processor
 def processPDF(fileName, storyNo, file, n1, n2):
-    read = PdfFileReader(file, strict=False)
-    directory = "..\\..\\data\\interim\\"+fileName[:11]+"\\"+fileName[:-4]+"-"+storyNo+".txt"
+    read = PdfReader(file, strict=False)
+    base_path = Path(os.path.abspath(__file__)).parent.parent.parent
+    storyNo = padded_num = f"{int(storyNo):02d}"
+        
+    file_name = fileName[:-4]+"-"+storyNo+".txt"
+    directory = Path(base_path / "data" / "interim" / fileName[:11] / file_name)
     textFile = open(directory,"w", encoding=("utf-8"))
     data = ""
     for i in range(n1,n2):
         data = data + "\n\n==================================================================================================================" +"\n\nPage:"+str((i+1))+"\n\n"
-        page = read.getPage(i)
-        pdfData = page.extractText()
+        page = read.pages[i]
+        pdfData = page.extract_text()
         #Extended words
         pdfData = pdfData.replace("\n-\n","")
         pdfData = pdfData.replace("-\n","")
@@ -62,16 +67,19 @@ def extractor(fileName,pages1, pages2, storyNo):
     #Extract integer pages for other translations
     pages2 = pages2.split("-")
     pages2 = [int(n) for n in pages2]
-    
-    for dirpath, dirnames, files in os.walk("..\\..\\data\\raw\\"+fileName):
+
+    base_path = Path(os.path.abspath(__file__)).parent.parent.parent
+    file_path = Path(base_path / "data" / "raw" / fileName)
+    for dirpath, _, files in os.walk(file_path):
         print("Parent directory: ",dirpath)
         for inFile in files:
             if (inFile[-3:]=="pdf"):
-                file = open(dirpath+"\\"+inFile,"rb") 
+                path = Path(dirpath + "/" + inFile)
+                file = open(path,"rb") 
             
                 #Check if this has already been run before:
                 try:
-                    os.mkdir("..\\..\\data\\interim\\"+fileName)
+                    os.mkdir(Path(base_path / "data" / "interim" / fileName))
                 except:
                     print(fileName)
                     print("Folder already exists, editing existing files.\n")
