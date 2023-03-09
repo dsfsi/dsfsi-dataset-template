@@ -49,7 +49,7 @@ def two_lang_alignment(src_lang, tgt_lang, edition):
         src_sentences = file_handler.read_file_as_array(edition, src_txt_paths[i]) # read the token sentences as array from data/tokenised folder
         tgt_sentences = file_handler.read_file_as_array(edition, tgt_txt_paths[i]) # read the token sentences as array from data/tokenised folder
         tgt_vector = sentence_embedding.decode_sentences(edition, tgt_txt_paths[i]) # decode the tgt vector from the data/embed folder
-        align(src_lang, tgt_lang, src_vector, tgt_vector, src_sentences, tgt_sentences)
+        align(src_lang, tgt_lang, src_vector, src_sentences, tgt_vector, tgt_sentences)
         # if len(src_vector) == len(tgt_vector) == len(src_sentences) == len(tgt_sentences): # if all the lists and vectors are the same length
             # sim_scores = perform_cosine_similarity(src_vector, tgt_vector) # obtain the list of similarity scores
             # file_handler.append_to_final_csv( #append all to csv
@@ -57,7 +57,7 @@ def two_lang_alignment(src_lang, tgt_lang, edition):
         #                                     tgt_sentences, 
         #                                     sim_scores)
         
-def align(src_lang, tgt_lang, src_vector, src_sentences, tgt_sentences, tgt_vector): 
+def align(src_lang, tgt_lang, src_vector, src_sentences, tgt_vector, tgt_sentences): 
     used_sentences = []
     loop_iter = min(len(src_vector), len(src_sentences), len(tgt_sentences), len(tgt_vector))
 
@@ -66,20 +66,20 @@ def align(src_lang, tgt_lang, src_vector, src_sentences, tgt_sentences, tgt_vect
     cos = []
     for i in range(loop_iter): 
         similarity_dict = {}
-        for j in range(loop_iter):
+        for j in range(loop_iter-1):
             if j in used_sentences:
                 continue
             else:
-                src_sent = src_sentences[i]
-                tgt_sent = tgt_sentences[i]
+                src_sent = src_vector[i]
+                tgt_sent = tgt_vector[i]
                 sim_score = cosine_score(src_sent,tgt_sent)
-                similarity_dict[j] = sim_score[0][0]
+                similarity_dict[j] = sim_score
 
         max_similar = max(similarity_dict, key = similarity_dict.get,default=0)
         used_sentences.append(max_similar)
 
         src.append(src_sentences[i])
-        tgt.append(src_sentences[max_similar])
+        tgt.append(tgt_sentences[max_similar])
         cos.append(sim_score)
 
     file_handler.append_to_final_csv(src_lang, src, tgt_lang, tgt, cos)

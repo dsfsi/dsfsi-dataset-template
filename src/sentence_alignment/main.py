@@ -25,7 +25,6 @@ if __name__ == "__main__":
     last_date = file_handler.extract_latest_edition()
     edition_keys = file_handler.fetch_data_edition_filepaths(last_date)
     language_pairs = list(combinations(languages, 2))
-    # file_handler.count_aligned_pairs()
 
 
     if len(edition_keys) > 0:
@@ -50,22 +49,25 @@ if __name__ == "__main__":
 
 
         # perform LASER encoding
-        print("LASER encoding process started...")
-        for edition in edition_keys:
-            for lang in lang_mappings.keys():
-                print("Encoding {} editions for {}".format(lang, edition))
-                if edition not in filepaths_dictionary[lang]:
-                    continue
-                for txt in filepaths_dictionary[lang][edition]:
-                    sentence_embedding.encode_sentences(edition, txt, lang_mappings[lang])
-        print("LASER encoding process completed")
+        # print("LASER encoding process started...")
+        # for edition in edition_keys:
+        #     for lang in lang_mappings.keys():
+        #         print("Encoding {} editions for {}".format(lang, edition))
+        #         if edition not in filepaths_dictionary[lang]:
+        #             continue
+        #         for txt in filepaths_dictionary[lang][edition]:
+        #             sentence_embedding.encode_sentences(edition, txt, lang_mappings[lang])
+        # print("LASER encoding process completed")
 
 
         # perform SA on LASER encoded sentences
         print("LASER aligning process started, output will be written to .csv in the data/sentence_align_output folder.")
         for (first_lang, sec_lang) in language_pairs:
-            for edition in edition_keys:
-                sentence_alignment.two_lang_alignment(first_lang, sec_lang, edition)
+        # for first_lang in languages:
+            # for sec_lang in languages:
+                for edition in edition_keys:
+                    if first_lang != sec_lang:
+                        sentence_alignment.two_lang_alignment(first_lang, sec_lang, edition)
         print("LASER aligning completed")
 
 
@@ -79,5 +81,6 @@ if __name__ == "__main__":
         
         # write last edition reviewed to file so as not to review in future
         file_handler.write_latest_edition(edition_keys[len(edition_keys)-1])
+        file_handler.count_aligned_pairs()
     else: print('No new editions present to perform sentence alignment')
 
