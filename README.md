@@ -139,5 +139,5 @@ Vukosi Marivate, Andani Madodonga, Daniel Njini, Richard Lastrucci, Isheanesu Dz
 
 Licences
 -------
-* License for Data - [CC 4.0 BY SA](LICENSE.data.md)
+* License for Data - [CC 4.0 BY](LICENSE.data.md)
 * Licence for Code - [MIT License](LICENSE.md)
